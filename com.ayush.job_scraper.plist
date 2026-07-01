@@ -17,7 +17,7 @@
   <string>/Users/ayushdabas/Desktop/jobApply_claude/job_scraper</string>
 
   <key>StartInterval</key>
-  <integer>7200</integer>
+  <integer>1800</integer>
 
   <key>RunAtLoad</key>
   <true/>

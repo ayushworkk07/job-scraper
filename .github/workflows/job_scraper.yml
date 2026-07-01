@@ -2,7 +2,7 @@ name: Job Scraper
 
 on:
   schedule:
-    - cron: '0 */4 * * *'   # every 4 hours
+    - cron: '*/30 * * * *'  # every 30 minutes
   workflow_dispatch:          # manual trigger
 
 permissions:

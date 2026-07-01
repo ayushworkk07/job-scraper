@@ -8,12 +8,20 @@ PLIST_DEST="$HOME/Library/LaunchAgents/$PLIST_NAME.plist"
 
 echo "=== Job Scraper Setup ==="
 
-# 1. Create venv
+# 1. Create venv (requires Python 3.10+ for python-jobspy)
+PYTHON311="/opt/homebrew/bin/python3.11"
+if [ ! -f "$PYTHON311" ]; then
+  echo "ERROR: Python 3.11 not found at $PYTHON311"
+  echo "Run: brew install python@3.11"
+  exit 1
+fi
 if [ ! -d "$VENV" ]; then
-  echo "Creating venv at $VENV..."
-  python3 -m venv "$VENV"
+  echo "Creating venv at $VENV (Python 3.11)..."
+  "$PYTHON311" -m venv "$VENV"
 else
-  echo "Venv already exists at $VENV"
+  echo "Venv already exists at $VENV — recreating with Python 3.11..."
+  rm -rf "$VENV"
+  "$PYTHON311" -m venv "$VENV"
 fi
 
 # 2. Install dependencies
@@ -47,7 +55,7 @@ launchctl load "$PLIST_DEST"
 
 echo ""
 echo "=== Setup complete ==="
-echo "Job scraper will run every 2 hours automatically."
+echo "Job scraper will run every 30 minutes automatically."
 echo "It will also run once right now (check logs in ~30s)."
 echo ""
 echo "Useful commands:"
