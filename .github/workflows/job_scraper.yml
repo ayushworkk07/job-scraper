@@ -28,6 +28,10 @@ jobs:
       - name: Install Playwright browsers
         run: playwright install chromium --with-deps
 
+      - name: Write Wellfound cookies
+        if: ${{ secrets.WELLFOUND_COOKIES != '' }}
+        run: echo "${{ secrets.WELLFOUND_COOKIES }}" | base64 -d > wellfound_cookies.json
+
       - name: Run scraper
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

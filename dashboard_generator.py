@@ -18,6 +18,7 @@ SOURCE_COLORS = {
     "WWR": "#DC2626",
     "WorkingNomads": "#D97706",
     "Jobicy": "#7C3AED",
+    "YCombinator": "#FF6600",
 }
 
 

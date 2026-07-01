@@ -26,6 +26,7 @@ from scrapers import (
     himalayas_scraper,
     remotive_scraper,
     rss_scraper,
+    yc_scraper,
 )
 
 JOBS_FILE = os.path.join(os.path.dirname(__file__), "jobs.json")
@@ -96,6 +97,9 @@ def main():
 
     # RSS feeds: WWR + WorkingNomads + Jobicy
     all_raw.extend(run_scraper("RSS", rss_scraper.scrape))
+
+    # Y Combinator Jobs + Work at a Startup
+    all_raw.extend(run_scraper("YCombinator", yc_scraper.scrape))
 
     print(f"\n[Main] Total raw: {len(all_raw)}")
 

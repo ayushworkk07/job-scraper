@@ -1,29 +1,36 @@
 from __future__ import annotations
 """
-Wellfound scraper with two strategies:
-  1. Playwright (headless, with login) — primary
-  2. requests + BeautifulSoup on public search — fallback if Playwright fails
+Wellfound scraper — cookie-based Playwright auth.
+
+Setup (one-time):
+  1. Install "Cookie-Editor" extension in Chrome
+  2. Log into wellfound.com
+  3. Click Cookie-Editor → Export → Export as JSON → copy
+  4. Save to wellfound_cookies.json in the project root (local dev)
+  5. For GitHub Actions: base64-encode the file and store as secret WELLFOUND_COOKIES
+     macOS:  base64 -i wellfound_cookies.json | pbcopy
+     Linux:  base64 -w 0 wellfound_cookies.json
+     Then add as GitHub secret — the workflow decodes it back to the file.
+
+When cookies expire you'll see:
+  [Wellfound] Cookies expired or invalid — re-export from Chrome
 """
+import json
 import os
 import re
 import time
-import requests
-from bs4 import BeautifulSoup
 from datetime import datetime, timezone
 
 SOURCE = "Wellfound"
-PUBLIC_SEARCH_URL = "https://wellfound.com/jobs"
-SEARCH_ROLES = ["backend engineer", "node.js developer", "software engineer"]
+COOKIES_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "wellfound_cookies.json")
+SEARCH_ROLES = ["backend engineer", "node.js", "software engineer"]
 
-
-# ── Helpers ────────────────────────────────────────────────────────────────
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
 def _parse_posted(text: str | None) -> str | None:
-    """Convert relative strings like '2 days ago' to approximate ISO timestamps."""
     if not text:
         return None
     from datetime import timedelta
@@ -33,30 +40,115 @@ def _parse_posted(text: str | None) -> str | None:
     if not m:
         return None
     n, unit = int(m.group(1)), m.group(2)
-    delta_map = {"minute": timedelta(minutes=n), "hour": timedelta(hours=n),
-                 "day": timedelta(days=n), "week": timedelta(weeks=n),
-                 "month": timedelta(days=n * 30)}
-    return (now - delta_map.get(unit, timedelta())).isoformat()
+    delta = {
+        "minute": timedelta(minutes=n), "hour": timedelta(hours=n),
+        "day": timedelta(days=n), "week": timedelta(weeks=n),
+        "month": timedelta(days=n * 30),
+    }.get(unit, timedelta())
+    return (now - delta).isoformat()
 
 
-# ── Strategy 1: Playwright ─────────────────────────────────────────────────
+def _load_cookies() -> list[dict] | None:
+    """Load cookies from wellfound_cookies.json. Returns None if file missing."""
+    if not os.path.exists(COOKIES_FILE):
+        print(f"[{SOURCE}] wellfound_cookies.json not found — skipping")
+        return None
+    try:
+        with open(COOKIES_FILE) as f:
+            raw = json.load(f)
+        # Cookie-Editor exports as list of objects; Playwright needs name/value/domain/path
+        cookies = []
+        for c in raw:
+            entry: dict = {
+                "name": c.get("name", ""),
+                "value": c.get("value", ""),
+                "domain": c.get("domain", ".wellfound.com"),
+                "path": c.get("path", "/"),
+            }
+            if not entry["name"] or not entry["value"]:
+                continue
+            if c.get("secure"):
+                entry["secure"] = True
+            if c.get("httpOnly"):
+                entry["httpOnly"] = True
+            if c.get("expirationDate"):
+                entry["expires"] = int(c["expirationDate"])
+            elif c.get("expires") and isinstance(c["expires"], (int, float)):
+                entry["expires"] = int(c["expires"])
+            cookies.append(entry)
+        if not cookies:
+            print(f"[{SOURCE}] wellfound_cookies.json is empty or malformed — skipping")
+            return None
+        return cookies
+    except Exception as e:
+        print(f"[{SOURCE}] Failed to load cookies — {e}")
+        return None
 
-def _scrape_playwright() -> list[dict]:
-    email = os.getenv("WELLFOUND_EMAIL", "")
-    password = os.getenv("WELLFOUND_PASSWORD", "")
-    if not email or not password:
-        print(f"[{SOURCE}] Playwright: WELLFOUND_EMAIL/PASSWORD not set — skipping login attempt")
+
+def _parse_html(html: str, now: str) -> list[dict]:
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(html, "lxml")
+    results = []
+
+    cards = (
+        soup.select("div[class*='JobListings'] div[class*='mb-6']")
+        or soup.select("div[data-test='StartupResult']")
+        or soup.select("div[class*='job-listing']")
+        or soup.select("div[class*='styles_jobListing']")
+    )
+
+    if not cards:
+        for a in soup.select("a[href*='/jobs/'][href*='/role']"):
+            href = a.get("href", "")
+            url = f"https://wellfound.com{href}" if href.startswith("/") else href
+            title = a.get_text(strip=True)
+            if title and url:
+                results.append({
+                    "title": title, "company": "", "url": url,
+                    "salary": None, "location_type": "REMOTE",
+                    "source": SOURCE, "posted_at": None, "scraped_at": now,
+                })
+        return results
+
+    for card in cards:
+        try:
+            title_el = card.select_one("h2, h3, [class*='title'], [class*='role']")
+            title = title_el.get_text(strip=True) if title_el else ""
+            company_el = card.select_one("[class*='company'], [class*='startup'], h4")
+            company = company_el.get_text(strip=True) if company_el else ""
+            a = card.select_one("a[href*='/jobs/']")
+            href = a["href"] if a else ""
+            url = f"https://wellfound.com{href}" if href.startswith("/") else href
+            salary_el = card.select_one("[class*='salary'], [class*='compensation']")
+            salary = salary_el.get_text(strip=True) if salary_el else None
+            time_el = card.select_one("time, [class*='time'], [class*='date']")
+            posted_raw = (time_el.get("datetime") or time_el.get_text(strip=True)) if time_el else None
+            if not url or not title:
+                continue
+            results.append({
+                "title": title, "company": company, "url": url,
+                "salary": salary, "location_type": "REMOTE",
+                "source": SOURCE, "posted_at": _parse_posted(posted_raw), "scraped_at": now,
+            })
+        except Exception:
+            continue
+    return results
+
+
+def scrape() -> list[dict]:
+    print(f"[{SOURCE}] Starting scrape (cookie-based Playwright)...")
+    cookies = _load_cookies()
+    if not cookies:
         return []
 
     try:
         from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
     except ImportError:
-        print(f"[{SOURCE}] Playwright not installed")
+        print(f"[{SOURCE}] Playwright not installed — skipping")
         return []
 
-    results = []
     now = _now_iso()
-    print(f"[{SOURCE}] Playwright: launching headless browser...")
+    results = []
 
     try:
         with sync_playwright() as p:
@@ -66,181 +158,61 @@ def _scrape_playwright() -> list[dict]:
                     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/124.0.0.0 Safari/537.36"
-                )
+                ),
+                locale="en-US",
             )
+            ctx.add_cookies(cookies)
             page = ctx.new_page()
 
-            # Login
-            print(f"[{SOURCE}] Playwright: navigating to login...")
-            page.goto("https://wellfound.com/login", timeout=30000)
-            time.sleep(2)
-            page.fill('input[name="user[email]"]', email)
-            page.fill('input[name="user[password]"]', password)
-            page.click('input[type="submit"], button[type="submit"]')
-            page.wait_for_timeout(3000)
+            # Verify cookies are valid — a logged-in user should not land on /login
+            print(f"[{SOURCE}] Verifying cookie auth...")
+            try:
+                page.goto("https://wellfound.com/", timeout=30000)
+                page.wait_for_timeout(2000)
+                if "login" in page.url or "sign_in" in page.url:
+                    print(
+                        f"[{SOURCE}] Cookies expired or invalid — "
+                        "re-export from Chrome using Cookie-Editor extension"
+                    )
+                    browser.close()
+                    return []
+                print(f"[{SOURCE}] Cookie auth OK")
+            except PWTimeout:
+                print(f"[{SOURCE}] Timeout verifying auth — proceeding anyway")
 
-            if "login" in page.url:
-                print(f"[{SOURCE}] Playwright: login may have failed — continuing anyway")
-
-            # Scrape job search pages
             for role in SEARCH_ROLES:
                 try:
-                    encoded = requests.utils.quote(role)
+                    import urllib.parse
+                    encoded = urllib.parse.quote(role)
                     page.goto(
                         f"https://wellfound.com/jobs?role={encoded}&remote=true",
                         timeout=30000,
                     )
                     page.wait_for_timeout(3000)
-
-                    # Scroll to load more
+                    # Scroll to trigger lazy loading
                     for _ in range(3):
                         page.evaluate("window.scrollBy(0, window.innerHeight)")
                         page.wait_for_timeout(1000)
-
-                    html = page.content()
-                    results.extend(_parse_wellfound_html(html, now))
+                    items = _parse_html(page.content(), now)
+                    print(f"[{SOURCE}] '{role}' → {len(items)} raw")
+                    results.extend(items)
                 except PWTimeout:
-                    print(f"[{SOURCE}] Playwright: timeout for role '{role}'")
+                    print(f"[{SOURCE}] Timeout on role '{role}'")
                 except Exception as e:
-                    print(f"[{SOURCE}] Playwright: error for role '{role}' — {e}")
+                    print(f"[{SOURCE}] Error on role '{role}' — {e}")
                 time.sleep(2)
 
             browser.close()
     except Exception as e:
-        print(f"[{SOURCE}] Playwright: browser error — {e}")
+        print(f"[{SOURCE}] Browser error — {e}")
         return []
 
-    # Deduplicate by URL
     seen: set[str] = set()
     unique = []
     for j in results:
-        if j["url"] not in seen:
+        if j["url"] and j["url"] not in seen:
             seen.add(j["url"])
             unique.append(j)
-    print(f"[{SOURCE}] Playwright: {len(unique)} unique jobs")
+
+    print(f"[{SOURCE}] {len(unique)} unique jobs")
     return unique
-
-
-# ── Strategy 2: requests + BeautifulSoup (public, no login) ───────────────
-
-_HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/124.0.0.0 Safari/537.36"
-    ),
-    "Accept": "text/html,application/xhtml+xml,*/*;q=0.9",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Referer": "https://wellfound.com/",
-}
-
-
-def _parse_wellfound_html(html: str, now: str) -> list[dict]:
-    """Parse Wellfound job listing HTML (works for both Playwright + requests output)."""
-    soup = BeautifulSoup(html, "lxml")
-    results = []
-
-    # Card selectors — Wellfound uses React so class names vary; try multiple
-    cards = (
-        soup.select("div[class*='JobListings'] div[class*='mb-6']")
-        or soup.select("div[data-test='StartupResult']")
-        or soup.select("div[class*='job-listing']")
-        or soup.select("div[class*='styles_jobListing']")
-    )
-
-    # Fallback: look for anchors pointing to /jobs/
-    if not cards:
-        links = soup.select("a[href*='/jobs/'][href*='/role']")
-        for a in links:
-            href = a.get("href", "")
-            url = f"https://wellfound.com{href}" if href.startswith("/") else href
-            title = a.get_text(strip=True)
-            if title and url:
-                results.append({
-                    "title": title,
-                    "company": "",
-                    "url": url,
-                    "salary": None,
-                    "location_type": "REMOTE",
-                    "source": SOURCE,
-                    "posted_at": None,
-                    "scraped_at": now,
-                })
-        return results
-
-    for card in cards:
-        try:
-            title_el = card.select_one("h2, h3, [class*='title'], [class*='role']")
-            title = title_el.get_text(strip=True) if title_el else ""
-
-            company_el = card.select_one("[class*='company'], [class*='startup'], h4")
-            company = company_el.get_text(strip=True) if company_el else ""
-
-            link_el = card.select_one("a[href*='/jobs/']")
-            href = link_el["href"] if link_el else ""
-            url = f"https://wellfound.com{href}" if href.startswith("/") else href
-
-            salary_el = card.select_one("[class*='salary'], [class*='compensation']")
-            salary = salary_el.get_text(strip=True) if salary_el else None
-
-            time_el = card.select_one("time, [class*='time'], [class*='date']")
-            posted_raw = time_el.get("datetime") or time_el.get_text(strip=True) if time_el else None
-            posted_at = _parse_posted(posted_raw)
-
-            if not url or not title:
-                continue
-
-            results.append({
-                "title": title,
-                "company": company,
-                "url": url,
-                "salary": salary,
-                "location_type": "REMOTE",
-                "source": SOURCE,
-                "posted_at": posted_at,
-                "scraped_at": now,
-            })
-        except Exception:
-            continue
-
-    return results
-
-
-def _scrape_bs4_fallback() -> list[dict]:
-    print(f"[{SOURCE}] Fallback: requests + BeautifulSoup on public search")
-    now = _now_iso()
-    results = []
-    seen_urls: set[str] = set()
-
-    for role in SEARCH_ROLES:
-        try:
-            r = requests.get(
-                PUBLIC_SEARCH_URL,
-                params={"role": role, "remote": "true"},
-                headers=_HEADERS,
-                timeout=20,
-            )
-            r.raise_for_status()
-            items = _parse_wellfound_html(r.text, now)
-            print(f"[{SOURCE}] Fallback '{role}' → {len(items)} raw")
-            for item in items:
-                if item["url"] and item["url"] not in seen_urls:
-                    seen_urls.add(item["url"])
-                    results.append(item)
-        except Exception as e:
-            print(f"[{SOURCE}] Fallback WARNING: '{role}' failed — {e}")
-        time.sleep(2)
-
-    print(f"[{SOURCE}] Fallback: {len(results)} unique")
-    return results
-
-
-# ── Public entry point ─────────────────────────────────────────────────────
-
-def scrape() -> list[dict]:
-    print(f"[{SOURCE}] Starting scrape...")
-    results = _scrape_playwright()
-    if not results:
-        print(f"[{SOURCE}] Playwright returned 0 results — trying BS4 fallback")
-        results = _scrape_bs4_fallback()
-    return results
