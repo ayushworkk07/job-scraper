@@ -80,22 +80,22 @@ a{color:inherit;text-decoration:none}
 <div class="header">
   <div>
     <div class="header-title">Ayush's <span>Job Radar</span></div>
-    <div class="header-meta">Last updated: Unknown &nbsp;·&nbsp; 0 jobs in 7-day window</div>
+    <div class="header-meta">Last updated: just now &nbsp;·&nbsp; 1 jobs in 7-day window</div>
   </div>
   <div class="next-scan" id="countdown">Next scan: calculating…</div>
 </div>
 
 <div class="stats">
-  <div class="stat"><div class="stat-num">0</div><div class="stat-label">Total (7d)</div></div>
+  <div class="stat"><div class="stat-num">1</div><div class="stat-label">Total (7d)</div></div>
   <div class="stat"><div class="stat-num">0</div><div class="stat-label">New Today</div></div>
   <div class="stat"><div class="stat-num">0</div><div class="stat-label">🇮🇳 India</div></div>
-  <div class="stat"><div class="stat-num">0</div><div class="stat-label">🌐 Remote</div></div>
+  <div class="stat"><div class="stat-num">1</div><div class="stat-label">🌐 Remote</div></div>
 </div>
 
 <div class="controls">
   <div class="filter-row" id="source-tabs">
     <button class="filter-btn active" data-source="all">All</button>
-    
+    <button class="filter-btn" data-source="Jobicy">Jobicy</button>
   </div>
   <div class="filter-row" id="loc-tabs">
     <button class="filter-btn active" data-loc="all">All Locations</button>
@@ -113,9 +113,9 @@ a{color:inherit;text-decoration:none}
 <div class="cards" id="cards"></div>
 
 <script>
-const JOBS = [];
+const JOBS = [{"title": "Full Stack Software Developer – Node.js & React (Bulgaria based)", "company": "", "url": "https://jobicy.com/jobs/143731-full-stack-software-developer-node-js-react-bulgaria-based", "salary": null, "location_type": "REMOTE", "source": "Jobicy", "posted_at": "2026-06-29T22:46:42+00:00", "scraped_at": "2026-07-01T17:07:40.469501+00:00"}];
 const BADGE_COLORS = {"Naukri": "#4A90D9", "Google": "#34A853", "Wellfound": "#FB5F1C", "Cutshort": "#7B61FF", "RemoteOK": "#00D4AA", "Himalayas": "#3B82F6", "Remotive": "#16A34A", "WWR": "#DC2626", "WorkingNomads": "#D97706", "Jobicy": "#7C3AED"};
-const LAST_UPDATED = null;
+const LAST_UPDATED = "2026-07-01T17:07:45.602347+00:00";
 
 const NEXT_RUN_INTERVAL_MS = 4 * 60 * 60 * 1000; // 4 hours
 
