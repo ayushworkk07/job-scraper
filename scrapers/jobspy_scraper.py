@@ -46,7 +46,7 @@ def _determine_location_type(location: str | None) -> str:
 def _scrape_site(scrape_jobs_fn, site: str, term: str, now: str) -> list[dict]:
     source = SOURCE_NAUKRI if site == "naukri" else SOURCE_GOOGLE
     try:
-        df = scrape_jobs(
+        df = scrape_jobs_fn(
             site_name=[site],
             search_term=term,
             location="India",

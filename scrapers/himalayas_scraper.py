@@ -8,12 +8,12 @@ BASE_URL = "https://himalayas.app/jobs/api/search"
 SEARCH_TERMS = ["backend engineer", "node.js", "software engineer"]
 
 
-def _parse_date(date_str: str | None) -> str | None:
-    if not date_str:
+def _parse_date(val) -> str | None:
+    if not val:
         return None
     try:
-        dt = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
-        return dt.astimezone(timezone.utc).isoformat()
+        # pubDate is a Unix timestamp integer
+        return datetime.fromtimestamp(int(val), tz=timezone.utc).isoformat()
     except Exception:
         return None
 
@@ -42,31 +42,34 @@ def scrape() -> list[dict]:
         print(f"[{SOURCE}] '{term}' → {len(jobs)} raw")
 
         for job in jobs:
-            url = job.get("url") or job.get("applicationUrl") or ""
+            # API uses applicationLink or guid for the job URL
+            url = (
+                job.get("applicationLink")
+                or job.get("guid")
+                or job.get("url")
+                or ""
+            )
             if not url or url in seen_urls:
                 continue
             seen_urls.add(url)
 
-            salary = job.get("salary") or job.get("salaryRange") or None
-            if isinstance(salary, dict):
-                lo = salary.get("min")
-                hi = salary.get("max")
-                currency = salary.get("currency", "USD")
-                if lo and hi:
-                    salary = f"{currency} {lo:,}–{hi:,}"
-                elif lo:
-                    salary = f"{currency} {lo:,}+"
-                else:
-                    salary = None
+            salary = None
+            lo = job.get("minSalary")
+            hi = job.get("maxSalary")
+            currency = job.get("currency") or "USD"
+            if lo and hi:
+                salary = f"{currency} {int(lo):,}–{int(hi):,}"
+            elif lo:
+                salary = f"{currency} {int(lo):,}+"
 
             results.append({
                 "title": job.get("title", ""),
-                "company": job.get("company", {}).get("name", "") if isinstance(job.get("company"), dict) else job.get("company", ""),
+                "company": job.get("companyName", ""),
                 "url": url,
-                "salary": str(salary) if salary else None,
+                "salary": salary,
                 "location_type": "REMOTE",
                 "source": SOURCE,
-                "posted_at": _parse_date(job.get("createdAt") or job.get("publishedAt")),
+                "posted_at": _parse_date(job.get("pubDate")),
                 "scraped_at": now,
             })
 
