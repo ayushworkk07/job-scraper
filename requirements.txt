@@ -1,0 +1,7 @@
+python-jobspy
+playwright
+beautifulsoup4
+requests
+python-dotenv
+feedparser
+lxml
