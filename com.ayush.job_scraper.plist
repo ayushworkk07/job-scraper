@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+  <key>Label</key>
+  <string>com.ayush.job_scraper</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/ayushdabas/.job_scraper_venv/bin/python3</string>
+    <string>/Users/ayushdabas/Desktop/jobApply_claude/job_scraper/local_scraper.py</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/ayushdabas/Desktop/jobApply_claude/job_scraper</string>
+
+  <key>StartInterval</key>
+  <integer>7200</integer>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/ayushdabas/Desktop/jobApply_claude/job_scraper/launchd_stdout.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/ayushdabas/Desktop/jobApply_claude/job_scraper/launchd_stderr.log</string>
+
+  <key>Nice</key>
+  <integer>10</integer>
+
+</dict>
+</plist>
