@@ -50,12 +50,15 @@ def scrape() -> list[dict]:
     for job in listings:
         if not _matches(job):
             continue
+        candidate_location = job.get("candidate_required_location") or ""
         results.append({
             "title": job.get("title", ""),
             "company": job.get("company_name", ""),
             "url": job.get("url", ""),
             "salary": job.get("salary") or None,
+            "location": candidate_location,
             "location_type": "REMOTE",
+            "description": (job.get("description") or "")[:1000],
             "source": SOURCE,
             "posted_at": _parse_date(job.get("publication_date")),
             "scraped_at": now,

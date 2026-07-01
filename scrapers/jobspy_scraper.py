@@ -72,12 +72,15 @@ def _scrape_site(scrape_jobs_fn, site: str, term: str, now: str) -> list[dict]:
             if salary_parts:
                 salary = f"{salary_interval} {'-'.join(salary_parts)}".strip()
 
+            raw_location = str(row.get("location") or "")
             results.append({
                 "title": str(row.get("title") or ""),
                 "company": str(row.get("company") or ""),
                 "url": url,
                 "salary": salary or None,
-                "location_type": _determine_location_type(str(row.get("location") or "")),
+                "location": raw_location,
+                "location_type": _determine_location_type(raw_location),
+                "description": str(row.get("description") or "")[:1000],
                 "source": source,
                 "posted_at": _to_iso(row.get("date_posted")),
                 "scraped_at": now,

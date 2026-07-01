@@ -108,6 +108,10 @@ def main():
     seen.update(new_urls)
     save_seen(seen)
 
+    # Strip description before persisting — used only for filtering, bloats JSON
+    for j in new_jobs:
+        j.pop("description", None)
+
     jobs_data = load_jobs()
     existing = jobs_data.get("jobs", [])
     combined = existing + new_jobs
