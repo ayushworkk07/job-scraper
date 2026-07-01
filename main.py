@@ -20,8 +20,6 @@ import dashboard_generator
 
 from scrapers import (
     jobspy_scraper,
-    wellfound_scraper,
-    cutshort_scraper,
     remoteok_scraper,
     himalayas_scraper,
     remotive_scraper,
@@ -81,27 +79,14 @@ def main():
     # ── 1. Run all scrapers ────────────────────────────────────────
     all_raw: list[dict] = []
 
-    # JobSpy: Naukri + Google
     all_raw.extend(run_scraper("JobSpy", jobspy_scraper.scrape))
-
-    # Wellfound
-    all_raw.extend(run_scraper("Wellfound", wellfound_scraper.scrape))
-
-    # Cutshort
-    all_raw.extend(run_scraper("Cutshort", cutshort_scraper.scrape))
-
-    # Remote APIs
     all_raw.extend(run_scraper("RemoteOK", remoteok_scraper.scrape))
     all_raw.extend(run_scraper("Himalayas", himalayas_scraper.scrape))
     all_raw.extend(run_scraper("Remotive", remotive_scraper.scrape))
-
-    # RSS feeds: WWR + WorkingNomads + Jobicy
     all_raw.extend(run_scraper("RSS", rss_scraper.scrape))
-
-    # Y Combinator Jobs + Work at a Startup
     all_raw.extend(run_scraper("YCombinator", yc_scraper.scrape))
 
-    print(f"\n[Main] Total raw: {len(all_raw)}")
+    print(f"\n[CI] Total raw: {len(all_raw)}")
 
     # ── 2. Apply filters ───────────────────────────────────────────
     filtered = apply_filters(all_raw)
