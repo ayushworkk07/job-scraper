@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-01T18:41:25.009051+00:00",
-  "total_count": 78,
+  "last_updated": "2026-07-01T20:26:47.732220+00:00",
+  "total_count": 88,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -781,6 +781,106 @@
       "source": "LinkedIn",
       "posted_at": "nan",
       "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Backend Engineer - Quote Automation (Remote, China)",
+      "company": "Bjak",
+      "url": "https://himalayas.app/companies/bjak/jobs/backend-engineer-quote-automation-remote-china",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-06-28T05:58:07+00:00",
+      "scraped_at": "2026-07-01T20:26:32.204454+00:00"
+    },
+    {
+      "title": "Talent Pool - Software Engineer, Backend",
+      "company": "1inch",
+      "url": "https://himalayas.app/companies/1inch-io/jobs/talent-pool-software-engineer-backend",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-06-25T06:47:57+00:00",
+      "scraped_at": "2026-07-01T20:26:32.204454+00:00"
+    },
+    {
+      "title": "Founding Backend Engineer - Marketplace and Logistics - Remote (USA)",
+      "company": "Flocker",
+      "url": "https://himalayas.app/companies/flocker/jobs/founding-backend-engineer-marketplace-and-logistics-remote-usa",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-06-29T02:46:15+00:00",
+      "scraped_at": "2026-07-01T20:26:32.204454+00:00"
+    },
+    {
+      "title": "Node.js Developer",
+      "company": "Pirsonal",
+      "url": "https://himalayas.app/companies/pirsonal/jobs/node-js-developer",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-06-29T09:24:38+00:00",
+      "scraped_at": "2026-07-01T20:26:32.204454+00:00"
+    },
+    {
+      "title": "Node.js Developer",
+      "company": "HBX Group",
+      "url": "https://himalayas.app/companies/hbx-group/jobs/node-js-developer",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-06-25T05:27:06+00:00",
+      "scraped_at": "2026-07-01T20:26:32.204454+00:00"
+    },
+    {
+      "title": "Node.js Developer",
+      "company": "AppMySite",
+      "url": "https://himalayas.app/companies/appmysite/jobs/node-js-developer",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-06-26T20:30:18+00:00",
+      "scraped_at": "2026-07-01T20:26:32.204454+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Zoom Communications, Inc.",
+      "url": "https://himalayas.app/companies/zoom-communications-inc/jobs/software-engineer-5722774533",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-06-29T04:11:57+00:00",
+      "scraped_at": "2026-07-01T20:26:32.204454+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "DataSolutions",
+      "url": "https://himalayas.app/companies/datasolutions/jobs/software-engineer",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-06-24T21:26:20+00:00",
+      "scraped_at": "2026-07-01T20:26:32.204454+00:00"
+    },
+    {
+      "title": "Software Engineer (業務委託）",
+      "company": "ROUTE06",
+      "url": "https://himalayas.app/companies/route06/jobs/software-engineer-2702959354",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-06-25T22:48:29+00:00",
+      "scraped_at": "2026-07-01T20:26:32.204454+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Peraton",
+      "url": "https://himalayas.app/companies/peraton/jobs/software-engineer-8721002211",
+      "salary": "USD 66,000–106,000",
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-06-26T18:43:57+00:00",
+      "scraped_at": "2026-07-01T20:26:32.204454+00:00"
     }
   ]
 }
