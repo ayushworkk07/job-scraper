@@ -29,8 +29,15 @@ jobs:
         run: playwright install chromium --with-deps
 
       - name: Write Wellfound cookies
-        if: ${{ secrets.WELLFOUND_COOKIES != '' }}
-        run: echo "${{ secrets.WELLFOUND_COOKIES }}" | base64 -d > wellfound_cookies.json
+        env:
+          WELLFOUND_COOKIES: ${{ secrets.WELLFOUND_COOKIES }}
+        run: |
+          if [ -n "$WELLFOUND_COOKIES" ]; then
+            echo "$WELLFOUND_COOKIES" | base64 -d > wellfound_cookies.json
+            echo "[Wellfound] Cookies file written"
+          else
+            echo "[Wellfound] WELLFOUND_COOKIES secret not set — will skip Wellfound scrape"
+          fi
 
       - name: Run scraper
         env:
