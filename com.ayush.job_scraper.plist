@@ -31,5 +31,11 @@
   <key>Nice</key>
   <integer>10</integer>
 
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PYTHONUNBUFFERED</key>
+    <string>1</string>
+  </dict>
+
 </dict>
 </plist>
