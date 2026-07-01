@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-01T22:06:18.304649+00:00",
-  "total_count": 88,
+  "last_updated": "2026-07-01T23:53:43.859644+00:00",
+  "total_count": 89,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -881,6 +881,16 @@
       "source": "Himalayas",
       "posted_at": "2026-06-26T18:43:57+00:00",
       "scraped_at": "2026-07-01T20:26:32.204454+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Arista Networks",
+      "url": "https://himalayas.app/companies/arista-networks/jobs/software-engineer",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-01T19:56:37+00:00",
+      "scraped_at": "2026-07-01T23:53:28.410575+00:00"
     }
   ]
 }
