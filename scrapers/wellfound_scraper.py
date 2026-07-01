@@ -1,19 +1,19 @@
 from __future__ import annotations
 """
-Wellfound scraper — cookie-based Playwright, GraphQL API interception.
+Wellfound scraper — two strategies:
 
-The Wellfound SPA fetches jobs via internal GraphQL. We:
-  1. Inject cookies so the session is authenticated
-  2. Navigate to the jobs page and intercept XHR/fetch responses
-  3. Pull job data from the GraphQL payload directly (avoids HTML selector fragility)
-  4. Fall back to broad HTML scraping if interception yields nothing
+1. Direct GraphQL API (requests, no browser) with session cookie.
+   Wellfound's SPA uses /graphql internally. DataDome targets browser
+   fingerprints; direct API calls with the auth cookie often bypass it.
+
+2. Cookie-based Playwright fallback if GraphQL returns nothing.
 
 Setup (one-time):
   Export cookies from Chrome using Cookie-Editor extension → JSON format.
-  macOS:  base64 -i wellfound_cookies.json | pbcopy   → paste as WELLFOUND_COOKIES secret
+  macOS:  base64 -i wellfound_cookies.json | pbcopy  → WELLFOUND_COOKIES secret
   Linux:  base64 -w 0 wellfound_cookies.json
 
-When cookies expire you'll see:
+Cookie expiry warning:
   [Wellfound] Cookies expired or invalid — re-export from Chrome using Cookie-Editor
 """
 import json
@@ -25,7 +25,31 @@ from datetime import datetime, timezone
 
 SOURCE = "Wellfound"
 COOKIES_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "wellfound_cookies.json")
+GRAPHQL_URL = "https://wellfound.com/graphql"
 SEARCH_ROLES = ["backend engineer", "software engineer", "node.js"]
+
+# GraphQL query used by the Wellfound SPA for job listings
+JOBS_QUERY = """
+query JobSearchResults($query: String, $remote: Boolean, $page: Int) {
+  jobListings(query: $query, remote: $remote, page: $page) {
+    total
+    jobListings {
+      id
+      title
+      slug
+      liveStartAt
+      compensation
+      remote
+      locationNames
+      jobType
+      startup {
+        name
+        slug
+      }
+    }
+  }
+}
+"""
 
 
 def _now_iso() -> str:
@@ -57,104 +81,179 @@ def _load_cookies() -> list[dict] | None:
     try:
         with open(COOKIES_FILE) as f:
             raw = json.load(f)
-        cookies = []
-        for c in raw:
-            entry: dict = {
-                "name": c.get("name", ""),
-                "value": c.get("value", ""),
-                "domain": c.get("domain", ".wellfound.com"),
-                "path": c.get("path", "/"),
-            }
-            if not entry["name"] or not entry["value"]:
-                continue
-            if c.get("secure"):
-                entry["secure"] = True
-            if c.get("httpOnly"):
-                entry["httpOnly"] = True
-            exp = c.get("expirationDate") or c.get("expires")
-            if exp and isinstance(exp, (int, float)) and exp > 0:
-                entry["expires"] = int(exp)
-            cookies.append(entry)
-        if not cookies:
+        if not raw:
             print(f"[{SOURCE}] wellfound_cookies.json is empty — skipping")
             return None
-        return cookies
+        return raw
     except Exception as e:
         print(f"[{SOURCE}] Failed to load cookies — {e}")
         return None
 
 
-def _extract_from_graphql(payload: dict, now: str) -> list[dict]:
-    """Pull jobs out of Wellfound's GraphQL response structure."""
+def _cookies_as_header(cookies: list[dict]) -> str:
+    """Convert Cookie-Editor JSON to a Cookie: header string."""
+    parts = []
+    for c in cookies:
+        name = c.get("name", "")
+        value = c.get("value", "")
+        if name and value:
+            parts.append(f"{name}={value}")
+    return "; ".join(parts)
+
+
+def _cookies_for_playwright(cookies: list[dict]) -> list[dict]:
+    """Convert Cookie-Editor JSON to Playwright cookie format."""
+    result = []
+    for c in cookies:
+        entry: dict = {
+            "name": c.get("name", ""),
+            "value": c.get("value", ""),
+            "domain": c.get("domain", ".wellfound.com"),
+            "path": c.get("path", "/"),
+        }
+        if not entry["name"] or not entry["value"]:
+            continue
+        if c.get("secure"):
+            entry["secure"] = True
+        if c.get("httpOnly"):
+            entry["httpOnly"] = True
+        exp = c.get("expirationDate") or c.get("expires")
+        if exp and isinstance(exp, (int, float)) and exp > 0:
+            entry["expires"] = int(exp)
+        result.append(entry)
+    return result
+
+
+def _parse_graphql_response(data: dict, now: str) -> list[dict]:
     results = []
-    raw_str = json.dumps(payload)
+    try:
+        listings = (
+            data.get("data", {})
+                .get("jobListings", {})
+                .get("jobListings", [])
+        )
+        for j in listings:
+            slug = j.get("slug", "")
+            title = j.get("title", "")
+            startup = j.get("startup") or {}
+            company = startup.get("name", "") if isinstance(startup, dict) else ""
+            url = f"https://wellfound.com/jobs/{slug}" if slug else ""
+            if not url or not title:
+                continue
 
-    # Walk all nested dicts/lists looking for job node patterns
-    def walk(node):
-        if isinstance(node, list):
-            for item in node:
-                walk(item)
-        elif isinstance(node, dict):
-            # Job node heuristic: has title + slug or url
-            title = node.get("title") or node.get("jobTitle") or node.get("name")
-            slug = node.get("slug") or node.get("jobListingSlug")
-            remote = node.get("remote") or node.get("isRemote")
-            company = node.get("company") or node.get("startup") or {}
-            company_name = ""
-            if isinstance(company, dict):
-                company_name = company.get("name") or company.get("companyName") or ""
+            comp = j.get("compensation")
+            salary = None
+            if isinstance(comp, str) and comp:
+                salary = comp
+            elif isinstance(comp, dict):
+                lo = comp.get("min")
+                hi = comp.get("max")
+                curr = comp.get("currency", "USD")
+                if lo and hi:
+                    salary = f"{curr} {lo:,}–{hi:,}"
 
-            if title and slug:
-                url = f"https://wellfound.com/jobs/{slug}"
-                compensation = node.get("compensation") or node.get("salary") or ""
-                if isinstance(compensation, dict):
-                    lo = compensation.get("min") or compensation.get("minValue")
-                    hi = compensation.get("max") or compensation.get("maxValue")
-                    curr = compensation.get("currency", "USD")
-                    compensation = f"{curr} {lo:,}–{hi:,}" if lo and hi else None
+            live = j.get("liveStartAt")
+            posted_at = None
+            if live:
+                try:
+                    dt = datetime.fromisoformat(str(live).replace("Z", "+00:00"))
+                    posted_at = dt.astimezone(timezone.utc).isoformat()
+                except Exception:
+                    pass
 
-                created = node.get("createdAt") or node.get("liveStartAt") or node.get("publishedAt")
-                posted_at = None
-                if created:
-                    try:
-                        dt = datetime.fromisoformat(str(created).replace("Z", "+00:00"))
-                        posted_at = dt.astimezone(timezone.utc).isoformat()
-                    except Exception:
-                        pass
-
-                results.append({
-                    "title": title,
-                    "company": company_name,
-                    "url": url,
-                    "salary": compensation if isinstance(compensation, str) else None,
-                    "location_type": "REMOTE" if remote else "INDIA",
-                    "source": SOURCE,
-                    "posted_at": posted_at,
-                    "scraped_at": now,
-                })
-            else:
-                for v in node.values():
-                    if isinstance(v, (dict, list)):
-                        walk(v)
-
-    walk(payload)
+            results.append({
+                "title": title,
+                "company": company,
+                "url": url,
+                "salary": salary,
+                "location_type": "REMOTE" if j.get("remote") else "INDIA",
+                "source": SOURCE,
+                "posted_at": posted_at,
+                "scraped_at": now,
+            })
+    except Exception as e:
+        print(f"[{SOURCE}] GraphQL parse error — {e}")
     return results
 
 
+# ── Strategy 1: Direct GraphQL API ────────────────────────────────────────────
+
+def _scrape_graphql(cookies: list[dict], now: str) -> list[dict]:
+    import requests
+
+    cookie_header = _cookies_as_header(cookies)
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Cookie": cookie_header,
+        "Referer": "https://wellfound.com/jobs",
+        "Origin": "https://wellfound.com",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+
+    results = []
+    seen: set[str] = set()
+
+    for role in SEARCH_ROLES:
+        try:
+            payload = {
+                "query": JOBS_QUERY,
+                "variables": {"query": role, "remote": True, "page": 1},
+            }
+            r = requests.post(GRAPHQL_URL, json=payload, headers=headers, timeout=20)
+            if r.status_code == 401 or r.status_code == 403:
+                print(f"[{SOURCE}] GraphQL {r.status_code} — cookies may be expired")
+                return []
+            if r.status_code != 200:
+                print(f"[{SOURCE}] GraphQL {r.status_code} for '{role}' — skipping")
+                time.sleep(1)
+                continue
+
+            ct = r.headers.get("content-type", "")
+            if "json" not in ct:
+                print(f"[{SOURCE}] GraphQL returned non-JSON for '{role}' (got {ct[:40]}) — likely blocked")
+                time.sleep(1)
+                continue
+
+            data = r.json()
+            if "errors" in data:
+                errs = data["errors"]
+                msg = errs[0].get("message", "") if errs else ""
+                if "auth" in msg.lower() or "login" in msg.lower():
+                    print(f"[{SOURCE}] Cookies expired or invalid — re-export from Chrome using Cookie-Editor")
+                    return []
+                print(f"[{SOURCE}] GraphQL errors for '{role}': {msg}")
+
+            items = _parse_graphql_response(data, now)
+            print(f"[{SOURCE}] GraphQL '{role}' → {len(items)} jobs")
+            for item in items:
+                if item["url"] not in seen:
+                    seen.add(item["url"])
+                    results.append(item)
+
+        except Exception as e:
+            print(f"[{SOURCE}] GraphQL request failed for '{role}' — {e}")
+        time.sleep(1)
+
+    return results
+
+
+# ── Strategy 2: Playwright fallback ───────────────────────────────────────────
+
 def _parse_html_broad(html: str, now: str) -> list[dict]:
-    """Broad HTML fallback — grab any job-looking links from the rendered page."""
     from bs4 import BeautifulSoup
     soup = BeautifulSoup(html, "lxml")
     results = []
 
-    # Try structured card selectors first
     for sel in [
-        "div[data-test='JobListing']",
-        "div[class*='JobCard']",
-        "div[class*='job-card']",
-        "div[class*='jobListing']",
-        "div[class*='listing']",
-        "[data-cy*='job']",
+        "div[data-test='JobListing']", "div[class*='JobCard']",
+        "div[class*='job-card']", "div[class*='jobListing']",
+        "div[class*='listing']", "[data-cy*='job']",
     ]:
         cards = soup.select(sel)
         if cards:
@@ -164,7 +263,7 @@ def _parse_html_broad(html: str, now: str) -> list[dict]:
                     continue
                 href = a.get("href", "")
                 url = f"https://wellfound.com{href}" if href.startswith("/") else href
-                title_el = card.select_one("h2, h3, h4, [class*='title'], [class*='role']")
+                title_el = card.select_one("h2,h3,h4,[class*='title'],[class*='role']")
                 title = title_el.get_text(strip=True) if title_el else a.get_text(strip=True)
                 if url and title:
                     results.append({
@@ -175,7 +274,7 @@ def _parse_html_broad(html: str, now: str) -> list[dict]:
             if results:
                 return results
 
-    # Absolute fallback: any /jobs/ link with reasonable text
+    # Last resort: any /jobs/ link
     for a in soup.select("a[href*='/jobs/']"):
         href = a.get("href", "")
         if not href or href in ("/jobs", "/jobs/"):
@@ -188,39 +287,30 @@ def _parse_html_broad(html: str, now: str) -> list[dict]:
                 "salary": None, "location_type": "REMOTE",
                 "source": SOURCE, "posted_at": None, "scraped_at": now,
             })
-
     return results
 
 
-def scrape() -> list[dict]:
-    print(f"[{SOURCE}] Starting scrape (cookie-based Playwright + GraphQL interception)...")
-    cookies = _load_cookies()
-    if not cookies:
-        return []
-
+def _scrape_playwright(cookies: list[dict], now: str) -> list[dict]:
     try:
         from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
     except ImportError:
-        print(f"[{SOURCE}] Playwright not installed — skipping")
+        print(f"[{SOURCE}] Playwright not installed")
         return []
 
-    now = _now_iso()
+    pw_cookies = _cookies_for_playwright(cookies)
     results = []
-    intercepted_jobs: list[dict] = []
+    intercepted: list[dict] = []
 
     def handle_response(response):
-        """Intercept GraphQL / JSON API responses and extract jobs."""
         try:
-            url = response.url
-            ct = response.headers.get("content-type", "")
             if response.status != 200:
                 return
-            if not ("json" in ct or "graphql" in url):
+            ct = response.headers.get("content-type", "")
+            if "json" not in ct:
                 return
             body = response.json()
-            found = _extract_from_graphql(body, now)
-            if found:
-                intercepted_jobs.extend(found)
+            items = _parse_graphql_response(body, now)
+            intercepted.extend(items)
         except Exception:
             pass
 
@@ -236,69 +326,63 @@ def scrape() -> list[dict]:
                 locale="en-US",
                 viewport={"width": 1280, "height": 900},
             )
-            ctx.add_cookies(cookies)
+            ctx.add_cookies(pw_cookies)
             page = ctx.new_page()
             page.on("response", handle_response)
-
-            # Verify session
-            print(f"[{SOURCE}] Verifying cookie auth...")
-            try:
-                page.goto("https://wellfound.com/", timeout=30000, wait_until="domcontentloaded")
-                page.wait_for_timeout(2000)
-                if "login" in page.url or "sign_in" in page.url:
-                    print(
-                        f"[{SOURCE}] Cookies expired or invalid — "
-                        "re-export from Chrome using Cookie-Editor extension"
-                    )
-                    browser.close()
-                    return []
-                print(f"[{SOURCE}] Cookie auth OK (page: {page.title()!r})")
-            except PWTimeout:
-                print(f"[{SOURCE}] Timeout on auth check — proceeding")
 
             for role in SEARCH_ROLES:
                 try:
                     encoded = urllib.parse.quote(role)
-                    target = f"https://wellfound.com/jobs?role={encoded}&remote=true"
-                    print(f"[{SOURCE}] Navigating to: {target}")
-                    page.goto(target, timeout=30000, wait_until="networkidle")
+                    page.goto(
+                        f"https://wellfound.com/jobs?role={encoded}&remote=true",
+                        timeout=35000,
+                        wait_until="networkidle",
+                    )
                     page.wait_for_timeout(2000)
-
-                    # Scroll to trigger lazy-loaded cards
                     for _ in range(4):
                         page.evaluate("window.scrollBy(0, window.innerHeight * 1.5)")
-                        page.wait_for_timeout(800)
-
-                    # Try waiting for job card elements
-                    for sel in ["[data-test='JobListing']", "[class*='JobCard']", "a[href*='/jobs/']"]:
-                        try:
-                            page.wait_for_selector(sel, timeout=5000)
-                            break
-                        except PWTimeout:
-                            continue
-
+                        page.wait_for_timeout(700)
                     html_items = _parse_html_broad(page.content(), now)
-                    print(f"[{SOURCE}] '{role}' → {len(html_items)} from HTML, {len(intercepted_jobs)} intercepted so far")
+                    print(f"[{SOURCE}] Playwright '{role}' → {len(html_items)} HTML, {len(intercepted)} intercepted")
                     results.extend(html_items)
                 except PWTimeout:
-                    print(f"[{SOURCE}] Timeout on role '{role}'")
+                    print(f"[{SOURCE}] Playwright timeout on '{role}'")
                 except Exception as e:
-                    print(f"[{SOURCE}] Error on role '{role}' — {e}")
+                    print(f"[{SOURCE}] Playwright error on '{role}' — {e}")
                 time.sleep(2)
 
             browser.close()
     except Exception as e:
-        print(f"[{SOURCE}] Browser error — {e}")
+        print(f"[{SOURCE}] Playwright browser error — {e}")
+
+    return intercepted + results
+
+
+# ── Public entry point ────────────────────────────────────────────────────────
+
+def scrape() -> list[dict]:
+    print(f"[{SOURCE}] Starting scrape...")
+    cookies = _load_cookies()
+    if not cookies:
         return []
 
-    # Merge HTML results + intercepted GraphQL jobs, deduplicate
-    all_jobs = intercepted_jobs + results
+    now = _now_iso()
+
+    # Try direct GraphQL first (no browser, bypasses DataDome browser fingerprint)
+    print(f"[{SOURCE}] Trying direct GraphQL API...")
+    results = _scrape_graphql(cookies, now)
+
+    if not results:
+        print(f"[{SOURCE}] GraphQL returned nothing — trying Playwright fallback")
+        results = _scrape_playwright(cookies, now)
+
+    # Deduplicate
     seen: set[str] = set()
     unique = []
-    for j in all_jobs:
+    for j in results:
         if j["url"] and j["url"] not in seen:
             seen.add(j["url"])
             unique.append(j)
 
-    print(f"[{SOURCE}] {len(intercepted_jobs)} from GraphQL, {len(results)} from HTML → {len(unique)} unique")
+    print(f"[{SOURCE}] {len(unique)} unique jobs")
     return unique
