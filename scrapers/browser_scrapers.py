@@ -176,16 +176,22 @@ def _parse_cutshort_page(html: str, now: str) -> list[dict]:
             except Exception:
                 continue
     else:
+        _SKIP = {"apply now", "apply", "view job", "view", "see details", "read more"}
+        seen_urls: set[str] = set()
         for a in soup.select("a[href*='/job/']"):
             href = a.get("href", "")
             url = f"https://cutshort.io{href}" if href.startswith("/") else href
             text = a.get_text(strip=True)
-            if text and len(text) > 5:
-                results.append({
-                    "title": text, "company": "", "url": url,
-                    "salary": None, "location_type": "INDIA",
-                    "source": CUTSHORT_SOURCE, "posted_at": None, "scraped_at": now,
-                })
+            if not text or len(text) < 6 or text.lower() in _SKIP:
+                continue
+            if url in seen_urls:
+                continue
+            seen_urls.add(url)
+            results.append({
+                "title": text, "company": "", "url": url,
+                "salary": None, "location_type": "INDIA",
+                "source": CUTSHORT_SOURCE, "posted_at": None, "scraped_at": now,
+            })
 
     return results
 
@@ -226,47 +232,9 @@ def scrape_local_browser() -> list[dict]:
             page = ctx.new_page()
 
             # ── Wellfound ──────────────────────────────────────────────────
-            if wellfound_cookies:
-                print(f"[{WELLFOUND_SOURCE}] Verifying cookie auth...")
-                try:
-                    page.goto("https://wellfound.com/", timeout=30000, wait_until="domcontentloaded")
-                    page.wait_for_timeout(2000)
-                    if "login" in page.url or "sign_in" in page.url:
-                        print(
-                            f"[{WELLFOUND_SOURCE}] Cookies expired or invalid — "
-                            "re-export from Chrome using Cookie-Editor"
-                        )
-                    else:
-                        print(f"[{WELLFOUND_SOURCE}] Cookie auth OK")
-                        seen_wf: set[str] = set()
-                        for role in WELLFOUND_ROLES:
-                            try:
-                                encoded = urllib.parse.quote(role)
-                                page.goto(
-                                    f"https://wellfound.com/jobs?role={encoded}&remote=true",
-                                    timeout=30000,
-                                    wait_until="networkidle",
-                                )
-                                page.wait_for_timeout(2000)
-                                for _ in range(4):
-                                    page.evaluate("window.scrollBy(0, window.innerHeight * 1.5)")
-                                    page.wait_for_timeout(700)
-                                items = _parse_wellfound_page(page.content(), now)
-                                print(f"[{WELLFOUND_SOURCE}] '{role}' → {len(items)} raw")
-                                for item in items:
-                                    if item["url"] not in seen_wf:
-                                        seen_wf.add(item["url"])
-                                        wellfound_jobs.append(item)
-                            except PWTimeout:
-                                print(f"[{WELLFOUND_SOURCE}] Timeout on '{role}'")
-                            except Exception as e:
-                                print(f"[{WELLFOUND_SOURCE}] Error on '{role}' — {e}")
-                            time.sleep(2)
-                        print(f"[{WELLFOUND_SOURCE}] {len(wellfound_jobs)} unique jobs")
-                except PWTimeout:
-                    print(f"[{WELLFOUND_SOURCE}] Timeout on auth check — skipping Wellfound")
-            else:
-                print(f"[{WELLFOUND_SOURCE}] No cookies — skipping")
+            # DataDome blocks all headless browsers on the jobs search page.
+            # Wellfound is skipped until a non-headless or API-based solution is found.
+            print(f"[{WELLFOUND_SOURCE}] Skipping — DataDome blocks headless browsers on job search pages")
 
             # ── Cutshort (same browser, same IP session) ───────────────────
             seen_cs: set[str] = set()
@@ -274,13 +242,13 @@ def scrape_local_browser() -> list[dict]:
                 try:
                     page.goto(
                         f"https://cutshort.io/jobs?keyword={urllib.parse.quote(kw)}&type=full-time",
-                        timeout=30000,
-                        wait_until="networkidle",
+                        timeout=60000,
+                        wait_until="domcontentloaded",
                     )
-                    page.wait_for_timeout(2000)
+                    page.wait_for_timeout(4000)
                     for _ in range(3):
                         page.evaluate("window.scrollBy(0, window.innerHeight)")
-                        page.wait_for_timeout(600)
+                        page.wait_for_timeout(800)
                     items = _parse_cutshort_page(page.content(), now)
                     print(f"[{CUTSHORT_SOURCE}] '{kw}' → {len(items)} raw")
                     for item in items:
@@ -301,5 +269,5 @@ def scrape_local_browser() -> list[dict]:
         return []
 
     all_jobs = wellfound_jobs + cutshort_jobs
-    print(f"[BrowserScraper] Done — {len(wellfound_jobs)} Wellfound + {len(cutshort_jobs)} Cutshort = {len(all_jobs)} total")
+    print(f"[BrowserScraper] Done — {len(cutshort_jobs)} Cutshort = {len(all_jobs)} total")
     return all_jobs
