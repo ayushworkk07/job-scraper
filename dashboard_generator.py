@@ -8,8 +8,8 @@ JOBS_FILE = os.path.join(os.path.dirname(__file__), "jobs.json")
 OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "index.html")
 
 SOURCE_COLORS = {
-    "Naukri": "#4A90D9",
-    "Google": "#34A853",
+    "Indeed": "#2164F3",
+    "LinkedIn": "#0A66C2",
     "Wellfound": "#FB5F1C",
     "Cutshort": "#7B61FF",
     "RemoteOK": "#00D4AA",

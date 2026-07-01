@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-01T18:20:36.328772+00:00",
-  "total_count": 5,
+  "last_updated": "2026-07-01T18:41:25.009051+00:00",
+  "total_count": 78,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -51,6 +51,736 @@
       "source": "Himalayas",
       "posted_at": "2026-06-29T22:52:47+00:00",
       "scraped_at": "2026-07-01T17:19:26.845846+00:00"
+    },
+    {
+      "title": "PHP Backend Developer",
+      "company": "BHS Solution",
+      "url": "https://in.indeed.com/viewjob?jk=5643f4c38d0ab21e",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Custom Software Engineer",
+      "company": "Accenture",
+      "url": "https://in.indeed.com/viewjob?jk=dfac376084f34ba3",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Backend Developer – B2B Platform",
+      "company": "Levi Strauss",
+      "url": "https://in.indeed.com/viewjob?jk=b4f794ae67f23e55",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "TEAL- Backend Engineer",
+      "company": "TITAN COMPANY",
+      "url": "https://in.indeed.com/viewjob?jk=fe72d42ee8b1ffbc",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Al Engineer - Full Stack Al Backend & Infrastructure",
+      "company": "HRNest",
+      "url": "https://in.indeed.com/viewjob?jk=316c2f493c54e6c9",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Sr. Software Engineer",
+      "company": "LEAPWORK",
+      "url": "https://in.indeed.com/viewjob?jk=899102cff12c5310",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "NodeJS Engineer",
+      "company": "Codewinglet Private Limited",
+      "url": "https://in.indeed.com/viewjob?jk=5358daafe96d361b",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "React JS and Node JS Developer",
+      "company": "Infosys",
+      "url": "https://in.indeed.com/viewjob?jk=3ae2c6d1c012ba2e",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Backend Developer(Node.js & MongoDB)",
+      "company": "Ascentech Services Ltd",
+      "url": "https://in.indeed.com/viewjob?jk=46cf8a4eeeb7a970",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer II",
+      "company": "American Express",
+      "url": "https://in.indeed.com/viewjob?jk=437c93c62bb42c7f",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "ServiceNow Sr. Software Engineer",
+      "company": "Prodapt Solutions",
+      "url": "https://in.indeed.com/viewjob?jk=ed32c02a3aaa25e1",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "SDE 1",
+      "company": "Growth School",
+      "url": "https://in.indeed.com/viewjob?jk=aa6f335b732d1288",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Development Engineer III (Mobile - Flutter)",
+      "company": "HighLevel",
+      "url": "https://in.indeed.com/viewjob?jk=954d0075540893f0",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Development Engineer III (Mobile - Flutter)",
+      "company": "HighLevel",
+      "url": "https://in.indeed.com/viewjob?jk=9dac62e29bd5144d",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Development Engineer 1 (SDE 1)",
+      "company": "Convegenius",
+      "url": "https://in.indeed.com/viewjob?jk=e47399b256fcfc5a",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Development Engineer I",
+      "company": "nan",
+      "url": "https://in.indeed.com/viewjob?jk=d71358d4a7e361e2",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "SDE-II, AI Core Infra - AI Analytics and Insights",
+      "company": "Amazon.com",
+      "url": "https://in.indeed.com/viewjob?jk=e70f51155e816bfb",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "SDE II, Alexa Endpoints",
+      "company": "Amazon.com",
+      "url": "https://in.indeed.com/viewjob?jk=5cb2039a751905cb",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer (Backend Engineer)",
+      "company": "Omnissa",
+      "url": "https://www.linkedin.com/jobs/view/4414739977",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Blackhawk Network India",
+      "url": "https://www.linkedin.com/jobs/view/4407115471",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "YipitData",
+      "url": "https://www.linkedin.com/jobs/view/4431585844",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Backend Engineer",
+      "company": "Testsigma",
+      "url": "https://www.linkedin.com/jobs/view/4434307534",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer II",
+      "company": "Alation",
+      "url": "https://www.linkedin.com/jobs/view/4407403299",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer, Backend",
+      "company": "DoorDash",
+      "url": "https://www.linkedin.com/jobs/view/4084261319",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Java Software Engineer",
+      "company": "Publicis Sapient",
+      "url": "https://www.linkedin.com/jobs/view/4434955533",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Backend Engineer - Wallets (100% Remote)",
+      "company": "Tether.io",
+      "url": "https://www.linkedin.com/jobs/view/4371268109",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "SDE 2",
+      "company": "InCommon",
+      "url": "https://www.linkedin.com/jobs/view/4432712002",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer (Backend)",
+      "company": "Servify",
+      "url": "https://www.linkedin.com/jobs/view/4432348101",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Java Software Engineer",
+      "company": "Oracle",
+      "url": "https://www.linkedin.com/jobs/view/4432364954",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Node JS Developer",
+      "company": "Scoutit",
+      "url": "https://www.linkedin.com/jobs/view/4435563663",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Node JS Developer",
+      "company": "Scoutit",
+      "url": "https://www.linkedin.com/jobs/view/4435579094",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "EIP Financial Services LLP",
+      "url": "https://www.linkedin.com/jobs/view/4432373348",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Custom Software Engineer",
+      "company": "Accenture in India",
+      "url": "https://www.linkedin.com/jobs/view/4293701611",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Node JS Developer",
+      "company": "CodeGama",
+      "url": "https://www.linkedin.com/jobs/view/4434100913",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "BackEnd Developer",
+      "company": "Recrew AI",
+      "url": "https://www.linkedin.com/jobs/view/4434956417",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Node.js Developer",
+      "company": "SID Global Solutions",
+      "url": "https://www.linkedin.com/jobs/view/4433638928",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "30 Sundays",
+      "url": "https://www.linkedin.com/jobs/view/4435808046",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer(Backend) [3+Years]",
+      "company": "ToolJet",
+      "url": "https://www.linkedin.com/jobs/view/4435560593",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "GoodSpace AI",
+      "url": "https://www.linkedin.com/jobs/view/4431006760",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "BigStep Technologies",
+      "url": "https://www.linkedin.com/jobs/view/4432378561",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Node.js Developer",
+      "company": "Lavance LLC",
+      "url": "https://www.linkedin.com/jobs/view/4432349076",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Full Stack Developer (React JS + Node JS) | 6 YoE | Any UST Location | Immediate Joiner",
+      "company": "UST",
+      "url": "https://www.linkedin.com/jobs/view/4393854508",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer 2",
+      "company": "Microsoft",
+      "url": "https://www.linkedin.com/jobs/view/4435119024",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Java Software Engineer",
+      "company": "LTIMindtree",
+      "url": "https://www.linkedin.com/jobs/view/4431552901",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Appinventiv",
+      "url": "https://www.linkedin.com/jobs/view/4431920858",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Development Engineer- SDE1 (Backend)",
+      "company": "Purplle.com",
+      "url": "https://www.linkedin.com/jobs/view/4434974547",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Virtusa",
+      "url": "https://www.linkedin.com/jobs/view/4422270239",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Aditya Birla Capital",
+      "url": "https://www.linkedin.com/jobs/view/4416064535",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Aditya Birla Capital",
+      "url": "https://www.linkedin.com/jobs/view/4416067484",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer, Developer Experience",
+      "company": "Notion",
+      "url": "https://www.linkedin.com/jobs/view/4375460799",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer III, Google Cloud",
+      "company": "Google",
+      "url": "https://www.linkedin.com/jobs/view/4434141026",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Calling all Software Engineers!",
+      "company": "ValGenesis",
+      "url": "https://www.linkedin.com/jobs/view/4431074136",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Development Engineer II, Amazon",
+      "company": "Amazon",
+      "url": "https://www.linkedin.com/jobs/view/4406880634",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Custom Software Engineer",
+      "company": "Accenture in India",
+      "url": "https://www.linkedin.com/jobs/view/4434736034",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Caterpillar Inc.",
+      "url": "https://www.linkedin.com/jobs/view/4434401641",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer I",
+      "company": "Uber",
+      "url": "https://www.linkedin.com/jobs/view/4431998954",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer 2- frontend",
+      "company": "Intuit",
+      "url": "https://www.linkedin.com/jobs/view/4435500941",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Junior Software Engineer",
+      "company": "StatusNeo",
+      "url": "https://www.linkedin.com/jobs/view/4435393547",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer III",
+      "company": "Google",
+      "url": "https://www.linkedin.com/jobs/view/4435837204",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Priceline",
+      "url": "https://www.linkedin.com/jobs/view/4435591293",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Solarpunk Futures",
+      "url": "https://www.linkedin.com/jobs/view/4432356707",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "GE Vernova",
+      "url": "https://www.linkedin.com/jobs/view/4386314358",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software development engineer",
+      "company": "Weekday AI (YC W21)",
+      "url": "https://www.linkedin.com/jobs/view/4432354891",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer II, ITC",
+      "company": "Nike",
+      "url": "https://www.linkedin.com/jobs/view/4435135467",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Custom Software Engineer",
+      "company": "Accenture in India",
+      "url": "https://www.linkedin.com/jobs/view/4434905172",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer, Apps",
+      "company": "Headout",
+      "url": "https://www.linkedin.com/jobs/view/4434439736",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer-II (Backend)",
+      "company": "Beam AI",
+      "url": "https://www.linkedin.com/jobs/view/4431080758",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Development Engineer II",
+      "company": "JioStar",
+      "url": "https://www.linkedin.com/jobs/view/4431065935",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Custom Software Engineer",
+      "company": "Accenture in India",
+      "url": "https://www.linkedin.com/jobs/view/4434731419",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer II, ITC",
+      "company": "Nike",
+      "url": "https://www.linkedin.com/jobs/view/4434036449",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": null,
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Addepar",
+      "url": "https://www.linkedin.com/jobs/view/4432388175",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Software Development Engineer III",
+      "company": "GreyOrange",
+      "url": "https://www.linkedin.com/jobs/view/4416631641",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
+    },
+    {
+      "title": "Backend Software Engineer",
+      "company": "Sprih",
+      "url": "https://www.linkedin.com/jobs/view/4431941907",
+      "salary": null,
+      "location_type": "INDIA",
+      "source": "LinkedIn",
+      "posted_at": "nan",
+      "scraped_at": "2026-07-01T18:39:12.658986+00:00"
     }
   ]
 }
