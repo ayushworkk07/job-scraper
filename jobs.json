@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-01T23:53:43.859644+00:00",
-  "total_count": 89,
+  "last_updated": "2026-07-02T04:01:31.733342+00:00",
+  "total_count": 93,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -891,6 +891,48 @@
       "source": "Himalayas",
       "posted_at": "2026-07-01T19:56:37+00:00",
       "scraped_at": "2026-07-01T23:53:28.410575+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "CERTIFID",
+      "url": "https://in.indeed.com/viewjob?jk=13975859484b0cd2",
+      "salary": null,
+      "location": "Remote, IN",
+      "location_type": "REMOTE",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-02T04:01:00.673135+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "CERTIFID",
+      "url": "https://in.indeed.com/viewjob?jk=5b477dccf12a7d8b",
+      "salary": null,
+      "location": "Remote, IN",
+      "location_type": "REMOTE",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-02T04:01:00.673135+00:00"
+    },
+    {
+      "title": "Remote Backend SWE",
+      "company": "Job Mobz",
+      "url": "https://himalayas.app/companies/job-mobz/jobs/remote-backend-swe",
+      "salary": "USD 70–90",
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T01:30:52+00:00",
+      "scraped_at": "2026-07-02T04:01:16.995563+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Britive",
+      "url": "https://himalayas.app/companies/britive/jobs/software-engineer",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T00:02:48+00:00",
+      "scraped_at": "2026-07-02T04:01:16.995563+00:00"
     }
   ]
 }
