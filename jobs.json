@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-02T17:56:07.081137+00:00",
-  "total_count": 94,
+  "last_updated": "2026-07-02T19:40:47.299949+00:00",
+  "total_count": 103,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -943,6 +943,96 @@
       "source": "Himalayas",
       "posted_at": "2026-07-02T05:26:31+00:00",
       "scraped_at": "2026-07-02T07:51:54.113136+00:00"
+    },
+    {
+      "title": "Backend Engineer",
+      "company": "Drivetrain",
+      "url": "https://himalayas.app/companies/drivetrain/jobs/backend-engineer",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T17:42:55+00:00",
+      "scraped_at": "2026-07-02T19:40:27.306798+00:00"
+    },
+    {
+      "title": "Backend Engineer (Remote Position)",
+      "company": "Entefy",
+      "url": "https://himalayas.app/companies/entefy/jobs/backend-engineer-remote-position",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T12:17:52+00:00",
+      "scraped_at": "2026-07-02T19:40:27.306798+00:00"
+    },
+    {
+      "title": "BackEnd Engineer | Compliance Team",
+      "company": "AetherCore",
+      "url": "https://himalayas.app/companies/aethercore-site/jobs/backend-engineer-compliance-team",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T09:57:27+00:00",
+      "scraped_at": "2026-07-02T19:40:27.306798+00:00"
+    },
+    {
+      "title": "BackEnd Engineer | Compliance Team",
+      "company": "AetherCore",
+      "url": "https://himalayas.app/companies/aethercore-site/jobs/backend-engineer-compliance-team-8894588306",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T13:45:04+00:00",
+      "scraped_at": "2026-07-02T19:40:27.306798+00:00"
+    },
+    {
+      "title": "Backend Engineer, Core Tech, Canada",
+      "company": "Stripe",
+      "url": "https://himalayas.app/companies/stripe/jobs/backend-engineer-core-tech-canada-1247692072",
+      "salary": "USD 135,800–225,600",
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T16:49:14+00:00",
+      "scraped_at": "2026-07-02T19:40:27.306798+00:00"
+    },
+    {
+      "title": "Full Stack Developer (NodeJS)",
+      "company": "Voiceoc",
+      "url": "https://himalayas.app/companies/voiceoc/jobs/full-stack-developer-nodejs",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T19:19:54+00:00",
+      "scraped_at": "2026-07-02T19:40:27.306798+00:00"
+    },
+    {
+      "title": "Full Stack Engineer (Vue+Node)",
+      "company": "Creative Chaos",
+      "url": "https://himalayas.app/companies/creative-chaos/jobs/full-stack-engineer-vue-node",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T17:35:53+00:00",
+      "scraped_at": "2026-07-02T19:40:27.306798+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Tap",
+      "url": "https://himalayas.app/companies/tap/jobs/software-engineer",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T11:58:59+00:00",
+      "scraped_at": "2026-07-02T19:40:27.306798+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Builder.io",
+      "url": "https://himalayas.app/companies/builder-io/jobs/software-engineer",
+      "salary": "EUR 90,000–105,000",
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T09:08:46+00:00",
+      "scraped_at": "2026-07-02T19:40:27.306798+00:00"
     }
   ]
 }
