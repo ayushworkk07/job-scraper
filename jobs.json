@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-03T19:59:44.126290+00:00",
-  "total_count": 112,
+  "last_updated": "2026-07-03T21:19:37.602817+00:00",
+  "total_count": 113,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1128,6 +1128,17 @@
       "source": "Indeed",
       "posted_at": null,
       "scraped_at": "2026-07-03T18:17:57.644575+00:00"
+    },
+    {
+      "title": "Founding Software Engineer (AI-Powered)",
+      "company": "nan",
+      "url": "https://in.indeed.com/viewjob?jk=25bacf0e46067a28",
+      "salary": null,
+      "location": "Remote, IN",
+      "location_type": "REMOTE",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-03T21:19:06.115895+00:00"
     }
   ]
 }
