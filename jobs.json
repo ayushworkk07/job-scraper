@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-03T16:56:49.071842+00:00",
-  "total_count": 111,
+  "last_updated": "2026-07-03T18:18:29.790531+00:00",
+  "total_count": 112,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1117,6 +1117,17 @@
       "source": "Indeed",
       "posted_at": null,
       "scraped_at": "2026-07-03T16:56:15.480200+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Infios",
+      "url": "https://in.indeed.com/viewjob?jk=1e3910464a525c1b",
+      "salary": null,
+      "location": "Remote, IN",
+      "location_type": "REMOTE",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-03T18:17:57.644575+00:00"
     }
   ]
 }
