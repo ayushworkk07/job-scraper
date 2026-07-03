@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-03T21:19:37.602817+00:00",
-  "total_count": 113,
+  "last_updated": "2026-07-03T22:36:16.592370+00:00",
+  "total_count": 114,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1139,6 +1139,16 @@
       "source": "Indeed",
       "posted_at": null,
       "scraped_at": "2026-07-03T21:19:06.115895+00:00"
+    },
+    {
+      "title": "AI Backend Engineer",
+      "company": "Parallel Partners",
+      "url": "https://himalayas.app/companies/parallel-partners/jobs/ai-backend-engineer",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-03T22:35:32+00:00",
+      "scraped_at": "2026-07-03T22:35:57.702060+00:00"
     }
   ]
 }
