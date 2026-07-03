@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-03T15:21:38.948206+00:00",
-  "total_count": 110,
+  "last_updated": "2026-07-03T16:56:49.071842+00:00",
+  "total_count": 111,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1106,6 +1106,17 @@
       "source": "Himalayas",
       "posted_at": "2026-07-03T09:42:36+00:00",
       "scraped_at": "2026-07-03T10:43:40.764742+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "XVector Labs",
+      "url": "https://in.indeed.com/viewjob?jk=acd3b2c1a4b7f490",
+      "salary": null,
+      "location": "Remote, IN",
+      "location_type": "REMOTE",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-03T16:56:15.480200+00:00"
     }
   ]
 }
