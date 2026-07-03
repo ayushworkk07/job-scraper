@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-02T22:40:04.920073+00:00",
-  "total_count": 104,
+  "last_updated": "2026-07-03T00:12:29.285450+00:00",
+  "total_count": 105,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1044,6 +1044,16 @@
       "source": "Indeed",
       "posted_at": null,
       "scraped_at": "2026-07-02T22:39:32.297898+00:00"
+    },
+    {
+      "title": "BackEnd Engineer | Compliance Team",
+      "company": "AetherCore",
+      "url": "https://himalayas.app/companies/aethercore-site/jobs/backend-engineer-compliance-team-7720918468",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-02T20:19:26+00:00",
+      "scraped_at": "2026-07-03T00:12:12.312178+00:00"
     }
   ]
 }
