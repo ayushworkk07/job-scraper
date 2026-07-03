@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-03T04:28:16.015532+00:00",
-  "total_count": 105,
+  "last_updated": "2026-07-03T07:48:58.326874+00:00",
+  "total_count": 106,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1054,6 +1054,17 @@
       "source": "Himalayas",
       "posted_at": "2026-07-02T20:19:26+00:00",
       "scraped_at": "2026-07-03T00:12:12.312178+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Silicon Biztech Pvt. Ltd.",
+      "url": "https://in.indeed.com/viewjob?jk=029eb76bdf80de1c",
+      "salary": null,
+      "location": "Remote, IN",
+      "location_type": "REMOTE",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-03T07:48:25.913665+00:00"
     }
   ]
 }
