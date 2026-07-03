@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-03T07:48:58.326874+00:00",
-  "total_count": 106,
+  "last_updated": "2026-07-03T10:43:56.913636+00:00",
+  "total_count": 110,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1065,6 +1065,47 @@
       "source": "Indeed",
       "posted_at": null,
       "scraped_at": "2026-07-03T07:48:25.913665+00:00"
+    },
+    {
+      "title": "Backend Developer (NodeJS)",
+      "company": "Wobot.ai",
+      "url": "https://in.indeed.com/viewjob?jk=b81a3f1b522bb4ab",
+      "salary": null,
+      "location": "Remote, IN",
+      "location_type": "REMOTE",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-03T10:43:24.274768+00:00"
+    },
+    {
+      "title": "Backend Engineer - Wallets (100% remote Worldwide)",
+      "company": "Tether Operations Limited",
+      "url": "https://himalayas.app/companies/tether-operations-limited/jobs/backend-engineer-wallets-100-remote-worldwide",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-03T10:17:16+00:00",
+      "scraped_at": "2026-07-03T10:43:40.764742+00:00"
+    },
+    {
+      "title": "Software Engineer (Backend)",
+      "company": "Akamai Technologies",
+      "url": "https://himalayas.app/companies/akamai-technologies/jobs/software-engineer-backend",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-03T09:42:52+00:00",
+      "scraped_at": "2026-07-03T10:43:40.764742+00:00"
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Bamboo Health",
+      "url": "https://himalayas.app/companies/bamboo-health/jobs/software-engineer",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-03T09:42:36+00:00",
+      "scraped_at": "2026-07-03T10:43:40.764742+00:00"
     }
   ]
 }
