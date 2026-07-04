@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-04T13:46:10.962043+00:00",
-  "total_count": 116,
+  "last_updated": "2026-07-04T15:11:20.781910+00:00",
+  "total_count": 117,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1170,6 +1170,17 @@
       "source": "Himalayas",
       "posted_at": "2026-07-04T00:17:30+00:00",
       "scraped_at": "2026-07-04T07:25:14.430353+00:00"
+    },
+    {
+      "title": "Python Backend Developer",
+      "company": "Swetang Engineers",
+      "url": "https://in.indeed.com/viewjob?jk=bd5b11eece95f12f",
+      "salary": null,
+      "location": "Remote, IN",
+      "location_type": "REMOTE",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-04T15:10:49.273591+00:00"
     }
   ]
 }
