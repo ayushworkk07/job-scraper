@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-04T04:22:03.736413+00:00",
-  "total_count": 115,
+  "last_updated": "2026-07-04T07:25:31.396124+00:00",
+  "total_count": 116,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1160,6 +1160,16 @@
       "source": "Indeed",
       "posted_at": null,
       "scraped_at": "2026-07-04T00:10:32.694714+00:00"
+    },
+    {
+      "title": "Backend Engineer",
+      "company": "Drivetrain",
+      "url": "https://himalayas.app/companies/drivetrain/jobs/backend-engineer-7802850717",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-04T00:17:30+00:00",
+      "scraped_at": "2026-07-04T07:25:14.430353+00:00"
     }
   ]
 }
