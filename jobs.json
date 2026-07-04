@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-03T22:36:16.592370+00:00",
-  "total_count": 114,
+  "last_updated": "2026-07-04T00:11:05.858440+00:00",
+  "total_count": 115,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1149,6 +1149,17 @@
       "source": "Himalayas",
       "posted_at": "2026-07-03T22:35:32+00:00",
       "scraped_at": "2026-07-03T22:35:57.702060+00:00"
+    },
+    {
+      "title": "Backend Developer (Node.js / TypeScript)",
+      "company": "Big Internet Seller Services Inc",
+      "url": "https://in.indeed.com/viewjob?jk=e6bd6b671808065a",
+      "salary": null,
+      "location": "Remote, IN",
+      "location_type": "REMOTE",
+      "source": "Indeed",
+      "posted_at": null,
+      "scraped_at": "2026-07-04T00:10:32.694714+00:00"
     }
   ]
 }
