@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-05T07:35:33.973770+00:00",
-  "total_count": 119,
+  "last_updated": "2026-07-05T10:22:47.865319+00:00",
+  "total_count": 120,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1201,6 +1201,16 @@
       "source": "Himalayas",
       "posted_at": "2026-07-04T21:41:06+00:00",
       "scraped_at": "2026-07-05T03:57:15.300339+00:00"
+    },
+    {
+      "title": "Software Engineer - 11573",
+      "company": "Coupa Software, Inc.",
+      "url": "https://himalayas.app/companies/coupa-software-inc/jobs/software-engineer-11573",
+      "salary": "PLN 173,000–241,467",
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-05T06:41:46+00:00",
+      "scraped_at": "2026-07-05T10:22:32.715336+00:00"
     }
   ]
 }
