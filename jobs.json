@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-04T23:38:58.300825+00:00",
-  "total_count": 118,
+  "last_updated": "2026-07-05T03:57:32.477801+00:00",
+  "total_count": 119,
   "jobs": [
     {
       "title": "Full Stack Software Developer – Node.js & React (Bulgaria based)",
@@ -1191,6 +1191,16 @@
       "source": "Himalayas",
       "posted_at": "2026-07-04T17:09:42+00:00",
       "scraped_at": "2026-07-04T19:47:02.039278+00:00"
+    },
+    {
+      "title": "Software Engineer II",
+      "company": "Akamai Technologies",
+      "url": "https://himalayas.app/companies/akamai-technologies/jobs/software-engineer-ii-4910259969",
+      "salary": null,
+      "location_type": "REMOTE",
+      "source": "Himalayas",
+      "posted_at": "2026-07-04T21:41:06+00:00",
+      "scraped_at": "2026-07-05T03:57:15.300339+00:00"
     }
   ]
 }
